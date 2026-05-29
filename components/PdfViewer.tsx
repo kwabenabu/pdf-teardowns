@@ -50,7 +50,7 @@ export default function PdfViewer({ url }: PdfViewerProps) {
     const canvas = document.createElement('canvas');
     canvas.width = viewport.width;
     canvas.height = viewport.height;
-    canvas.className = 'mx-auto shadow-md';
+    canvas.className = 'mx-auto rounded-sm shadow-[0_2px_16px_rgba(0,0,0,0.08)]';
     canvasRef.current.appendChild(canvas);
 
     const ctx = canvas.getContext('2d')!;
@@ -65,40 +65,48 @@ export default function PdfViewer({ url }: PdfViewerProps) {
   }
 
   if (error) {
-    return <p className="text-red-500 text-center py-8">{error}</p>;
+    return (
+      <div className="flex items-center justify-center py-24">
+        <p className="text-sm text-red-400 font-sans">{error}</p>
+      </div>
+    );
   }
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-24">
-        <div className="animate-pulse text-gray-400">Loading PDF…</div>
+      <div className="flex items-center justify-center py-32">
+        <div className="flex gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-gray-300 animate-bounce [animation-delay:-0.3s]" />
+          <span className="w-1.5 h-1.5 rounded-full bg-gray-300 animate-bounce [animation-delay:-0.15s]" />
+          <span className="w-1.5 h-1.5 rounded-full bg-gray-300 animate-bounce" />
+        </div>
       </div>
     );
   }
 
   return (
     <div>
-      <div className="sticky top-0 z-10 bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
+      <div className="sticky top-0 z-10 bg-white/90 backdrop-blur border-b border-gray-100 px-6 py-3 flex items-center justify-between">
         <button
           onClick={() => goToPage(Math.max(1, currentPage - 1))}
           disabled={currentPage <= 1}
-          className="px-3 py-1.5 text-sm border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="px-4 py-1.5 text-xs font-sans font-medium text-gray-500 border border-gray-200 rounded-full hover:bg-gray-50 hover:text-gray-800 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
         >
-          ← Previous
+          ← Prev
         </button>
-        <span className="text-sm text-gray-600">
-          Page {currentPage} of {numPages}
+        <span className="text-xs text-gray-400 font-sans tabular-nums">
+          {currentPage} / {numPages}
         </span>
         <button
           onClick={() => goToPage(Math.min(numPages, currentPage + 1))}
           disabled={currentPage >= numPages}
-          className="px-3 py-1.5 text-sm border border-gray-300 rounded hover:bg-gray-50 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="px-4 py-1.5 text-xs font-sans font-medium text-gray-500 border border-gray-200 rounded-full hover:bg-gray-50 hover:text-gray-800 disabled:opacity-30 disabled:cursor-not-allowed transition-all"
         >
           Next →
         </button>
       </div>
 
-      <div ref={canvasRef} className="py-8 px-4 bg-gray-50 min-h-96" />
+      <div ref={canvasRef} className="py-10 px-6 bg-gray-50 min-h-96 overflow-x-auto" />
     </div>
   );
 }

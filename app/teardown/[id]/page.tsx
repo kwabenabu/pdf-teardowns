@@ -14,36 +14,35 @@ export default async function TeardownPage({ params }: { params: { id: string } 
 
   return (
     <div className="min-h-screen bg-white">
-      <header className="border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-6 py-6">
-          <Link
-            href="/"
-            className="text-sm text-gray-400 hover:text-gray-600 transition-colors"
-          >
-            ← All teardowns
-          </Link>
-        </div>
-      </header>
-
-      <div className="max-w-4xl mx-auto px-6 py-10">
-        <h1
-          className="text-4xl font-bold text-gray-900 leading-tight"
-          style={{ fontFamily: 'Georgia, serif' }}
+      <div className="max-w-2xl mx-auto px-6 pt-10 pb-2">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-700 transition-colors font-sans tracking-wide uppercase"
         >
-          {teardown.title}
-        </h1>
-        <p className="mt-4 text-gray-600 text-lg leading-relaxed">{teardown.description}</p>
-        <time className="mt-3 block text-sm text-gray-400">
+          ← All teardowns
+        </Link>
+      </div>
+
+      <article className="max-w-2xl mx-auto px-6 pt-8 pb-14">
+        <time className="block text-xs text-gray-300 font-sans tracking-wide uppercase mb-4">
           {new Date(teardown.date).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
           })}
         </time>
-      </div>
+        <h1 className="font-serif text-4xl sm:text-5xl font-bold text-gray-950 leading-tight tracking-tight">
+          {teardown.title}
+        </h1>
+        <p className="mt-5 text-gray-500 text-lg leading-relaxed font-sans">
+          {teardown.description}
+        </p>
+      </article>
 
-      <div className="border-t border-gray-200">
-        <PdfViewer url={`/api/pdf/${teardown.id}`} />
+      <div className="border-t border-gray-100 bg-gray-50">
+        <div className="max-w-4xl mx-auto">
+          <PdfViewer url={`/api/pdf/${teardown.id}`} />
+        </div>
       </div>
     </div>
   );
