@@ -48,6 +48,11 @@ export async function getTeardownById(id: number): Promise<Teardown | undefined>
   return result.rows[0] as unknown as Teardown | undefined;
 }
 
+export async function deleteTeardown(id: number): Promise<void> {
+  await ensureReady();
+  await client.execute({ sql: 'DELETE FROM teardowns WHERE id = ?', args: [id] });
+}
+
 export async function createTeardown(data: {
   title: string;
   description: string;

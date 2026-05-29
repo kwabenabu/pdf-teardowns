@@ -2,6 +2,7 @@ import { redirect } from 'next/navigation';
 import { isAuthenticated } from '@/lib/auth';
 import { getAllTeardowns } from '@/lib/db';
 import UploadForm from './UploadForm';
+import TeardownList from './TeardownList';
 import Link from 'next/link';
 
 export const dynamic = 'force-dynamic';
@@ -46,32 +47,7 @@ export default async function DashboardPage() {
 
         <section>
           <h2 className="text-lg font-semibold text-gray-800 mb-4">Published Teardowns</h2>
-          {teardowns.length === 0 ? (
-            <p className="text-gray-400 text-sm">None yet.</p>
-          ) : (
-            <div className="divide-y divide-gray-100 bg-white border border-gray-200 rounded-xl shadow-sm">
-              {teardowns.map((t) => (
-                <div key={t.id} className="px-6 py-4 flex items-center justify-between gap-4">
-                  <div>
-                    <p className="font-medium text-gray-900 text-sm">{t.title}</p>
-                    <p className="text-xs text-gray-400 mt-0.5">
-                      {new Date(t.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
-                      })}
-                    </p>
-                  </div>
-                  <Link
-                    href={`/teardown/${t.id}`}
-                    className="text-xs text-gray-400 hover:text-gray-600 transition shrink-0"
-                  >
-                    View →
-                  </Link>
-                </div>
-              ))}
-            </div>
-          )}
+          <TeardownList teardowns={teardowns} />
         </section>
       </main>
     </div>
