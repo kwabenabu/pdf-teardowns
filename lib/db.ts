@@ -16,6 +16,7 @@ async function ensureReady() {
       description TEXT NOT NULL,
       date TEXT NOT NULL,
       filename TEXT NOT NULL,
+      pdf_data TEXT NOT NULL,
       created_at TEXT NOT NULL DEFAULT (datetime('now'))
     )
   `);
@@ -34,7 +35,7 @@ export interface Teardown {
 export async function getAllTeardowns(): Promise<Teardown[]> {
   await ensureReady();
   const result = await client.execute(
-    'SELECT * FROM teardowns ORDER BY date DESC'
+    'SELECT id, title, description, date, filename, created_at FROM teardowns ORDER BY date DESC'
   );
   return result.rows as unknown as Teardown[];
 }
@@ -42,10 +43,19 @@ export async function getAllTeardowns(): Promise<Teardown[]> {
 export async function getTeardownById(id: number): Promise<Teardown | undefined> {
   await ensureReady();
   const result = await client.execute({
-    sql: 'SELECT * FROM teardowns WHERE id = ?',
+    sql: 'SELECT id, title, description, date, filename, created_at FROM teardowns WHERE id = ?',
     args: [id],
   });
   return result.rows[0] as unknown as Teardown | undefined;
+}
+
+export async function getPdfData(id: number): Promise<string | undefined> {
+  await ensureReady();
+  const result = await client.execute({
+    sql: 'SELECT pdf_data FROM teardowns WHERE id = ?',
+    args: [id],
+  });
+  return result.rows[0]?.pdf_data as string | undefined;
 }
 
 export async function deleteTeardown(id: number): Promise<void> {
@@ -58,11 +68,12 @@ export async function createTeardown(data: {
   description: string;
   date: string;
   filename: string;
+  pdfData: string;
 }): Promise<Teardown> {
   await ensureReady();
   const result = await client.execute({
-    sql: 'INSERT INTO teardowns (title, description, date, filename) VALUES (?, ?, ?, ?)',
-    args: [data.title, data.description, data.date, data.filename],
+    sql: 'INSERT INTO teardowns (title, description, date, filename, pdf_data) VALUES (?, ?, ?, ?, ?)',
+    args: [data.title, data.description, data.date, data.filename, data.pdfData],
   });
   const inserted = await getTeardownById(Number(result.lastInsertRowid));
   return inserted!;

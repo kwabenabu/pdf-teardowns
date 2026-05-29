@@ -43,7 +43,7 @@ export default async function TeardownPage({ params }: { params: { id: string } 
       </div>
 
       <div className="border-t border-gray-200">
-        <PdfViewer url={teardown.filename} />
+        <PdfViewer url={`/api/pdf/${teardown.id}`} />
       </div>
     </div>
   );
