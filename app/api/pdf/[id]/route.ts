@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPdfData } from '@/lib/db';
 
+export const revalidate = 31536000; // cache at the edge for 1 year
+
 export async function GET(
   _req: NextRequest,
   { params }: { params: { id: string } }
