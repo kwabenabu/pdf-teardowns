@@ -35,6 +35,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# PDF.js worker (copied at build time)
+/public/pdf.worker.min.mjs
+
 # local SQLite database
 *.db
 *.db-wal
