@@ -21,7 +21,7 @@ export default async function HomePage() {
           Vol. I &nbsp;·&nbsp; A Personal Publication
         </p>
         <h1 className="font-serif text-7xl sm:text-8xl font-black text-ink leading-[0.9] tracking-tight">
-          PDF<br />Teardowns
+          Kwabena<br />Product<br />Teardowns
         </h1>
 
         <div className="zine-divider mt-10">✦ &nbsp; teardowns &nbsp; ✦</div>
