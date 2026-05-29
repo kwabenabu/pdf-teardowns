@@ -34,3 +34,12 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local SQLite database
+*.db
+*.db-wal
+*.db-shm
+
+# uploaded PDFs (local dev only — prod uses Vercel Blob)
+/public/uploads/*
+!/public/uploads/.gitkeep
