@@ -22,36 +22,43 @@ export default function TeardownList({ teardowns }: { teardowns: Teardown[] }) {
   }
 
   if (teardowns.length === 0) {
-    return <p className="text-xs font-sans text-gray-300 uppercase tracking-wide">Nothing published yet.</p>;
+    return (
+      <p className="font-mono text-[10px] text-border uppercase tracking-widest">
+        — Nothing published yet —
+      </p>
+    );
   }
 
   return (
-    <div className="divide-y divide-gray-100 bg-white border border-gray-100 rounded-2xl shadow-sm overflow-hidden">
-      {teardowns.map((t) => (
+    <div className="border-2 border-dashed border-border divide-y divide-dashed divide-border">
+      {teardowns.map((t, i) => (
         <div key={t.id} className="px-6 py-4 flex items-center justify-between gap-4">
-          <div className="flex-1 min-w-0">
-            <p className="font-sans font-medium text-gray-800 text-sm truncate">{t.title}</p>
-            <p className="text-xs text-gray-300 font-sans mt-0.5">
-              {new Date(t.date).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'short',
-                day: 'numeric',
-              })}
-            </p>
+          <div className="flex items-center gap-4 flex-1 min-w-0">
+            <span className="font-mono text-xs text-border shrink-0">
+              {String(i + 1).padStart(2, '0')}
+            </span>
+            <div className="min-w-0">
+              <p className="font-sans font-medium text-ink text-sm truncate">{t.title}</p>
+              <p className="font-mono text-[10px] text-muted mt-0.5 uppercase tracking-wider">
+                {new Date(t.date).toLocaleDateString('en-US', {
+                  year: 'numeric', month: 'short', day: 'numeric',
+                }).toUpperCase()}
+              </p>
+            </div>
           </div>
           <div className="flex items-center gap-5 shrink-0">
             <Link
               href={`/teardown/${t.id}`}
-              className="text-xs font-sans text-gray-400 hover:text-gray-700 transition"
+              className="font-mono text-[10px] text-muted hover:text-ink uppercase tracking-widest transition-colors"
             >
               View →
             </Link>
             <button
               onClick={() => handleDelete(t.id, t.title)}
               disabled={deleting === t.id}
-              className="text-xs font-sans text-gray-300 hover:text-red-400 transition disabled:opacity-40"
+              className="font-mono text-[10px] text-border hover:text-red-500 uppercase tracking-widest transition-colors disabled:opacity-40"
             >
-              {deleting === t.id ? 'Deleting…' : 'Delete'}
+              {deleting === t.id ? 'Removing…' : 'Delete'}
             </button>
           </div>
         </div>

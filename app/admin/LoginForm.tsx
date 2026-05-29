@@ -23,15 +23,15 @@ export default function AdminLoginForm() {
     if (res.ok) {
       router.push('/admin/dashboard');
     } else {
-      setError('Incorrect password.');
+      setError('Wrong password.');
     }
     setLoading(false);
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-white border border-gray-100 rounded-2xl p-8 shadow-sm space-y-4">
+    <form onSubmit={handleSubmit} className="border-2 border-dashed border-ink p-8 space-y-5 bg-cream">
       <div>
-        <label className="block text-xs font-sans font-medium text-gray-500 uppercase tracking-wide mb-2">
+        <label className="font-mono text-[10px] text-muted uppercase tracking-[0.2em] block mb-2">
           Password
         </label>
         <input
@@ -39,17 +39,19 @@ export default function AdminLoginForm() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-sans text-gray-900 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition"
+          className="w-full border border-border bg-cream text-ink font-sans text-sm px-4 py-3 focus:outline-none focus:border-ink focus:ring-0 placeholder-border transition-colors"
           placeholder="••••••••••••"
         />
       </div>
-      {error && <p className="text-xs text-red-400 font-sans">{error}</p>}
+      {error && (
+        <p className="font-mono text-[10px] text-red-500 uppercase tracking-widest">{error}</p>
+      )}
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-gray-950 text-white py-3 rounded-xl text-sm font-sans font-medium hover:bg-gray-800 transition disabled:opacity-40"
+        className="w-full bg-ink text-cream font-mono text-xs py-3.5 uppercase tracking-[0.2em] hover:bg-accent hover:text-ink transition-colors disabled:opacity-40"
       >
-        {loading ? 'Signing in…' : 'Sign in'}
+        {loading ? 'Entering…' : 'Enter →'}
       </button>
     </form>
   );

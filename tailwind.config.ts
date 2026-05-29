@@ -9,8 +9,16 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
+        serif: ['var(--font-playfair)', 'Georgia', 'serif'],
+        mono: ['var(--font-plex-mono)', 'ui-monospace', 'monospace'],
         sans: ['var(--font-inter)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        serif: ['var(--font-fraunces)', 'Georgia', 'serif'],
+      },
+      colors: {
+        cream: '#F5F0E8',
+        ink:   '#1A1A1A',
+        accent: '#FFE500',
+        muted: '#8C7B6B',
+        border: '#D4CFC6',
       },
     },
   },

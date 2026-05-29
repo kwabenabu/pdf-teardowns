@@ -8,13 +8,13 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-cream flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
         <div className="text-center mb-10">
-          <h1 className="font-serif text-3xl font-bold text-gray-950">
-            PDF Teardowns
-          </h1>
-          <p className="mt-2 text-sm text-gray-400 font-sans">Admin access</p>
+          <h1 className="font-serif text-5xl font-black text-ink">PDF Teardowns</h1>
+          <p className="font-mono text-[10px] text-muted tracking-[0.25em] uppercase mt-2">
+            Admin Access
+          </p>
         </div>
         <AdminLoginForm />
       </div>

@@ -1,12 +1,18 @@
 import type { Metadata } from 'next';
-import { Fraunces, Inter } from 'next/font/google';
+import { Playfair_Display, IBM_Plex_Mono, Inter } from 'next/font/google';
 import './globals.css';
 
-const fraunces = Fraunces({
+const playfair = Playfair_Display({
   subsets: ['latin'],
-  variable: '--font-fraunces',
+  variable: '--font-playfair',
   display: 'swap',
-  axes: ['opsz'],
+});
+
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  variable: '--font-plex-mono',
+  weight: ['400', '500', '600'],
+  display: 'swap',
 });
 
 const inter = Inter({
@@ -20,14 +26,10 @@ export const metadata: Metadata = {
   description: 'In-depth PDF teardowns and analyses',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
-      <body className="bg-white text-gray-900 antialiased font-sans">
+    <html lang="en" className={`${playfair.variable} ${plexMono.variable} ${inter.variable}`}>
+      <body className="bg-cream text-ink antialiased font-sans">
         {children}
       </body>
     </html>

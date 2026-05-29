@@ -13,35 +13,45 @@ export default async function TeardownPage({ params }: { params: { id: string } 
   if (!teardown) notFound();
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-2xl mx-auto px-6 pt-10 pb-2">
+    <div className="min-h-screen bg-cream">
+      {/* Nav bar */}
+      <div className="max-w-2xl mx-auto px-6 pt-8">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-gray-700 transition-colors font-sans tracking-wide uppercase"
+          className="font-mono text-[10px] text-muted tracking-[0.2em] uppercase hover:text-ink transition-colors"
         >
-          ← All teardowns
+          ← Back to Teardowns
         </Link>
       </div>
 
-      <article className="max-w-2xl mx-auto px-6 pt-8 pb-14">
-        <time className="block text-xs text-gray-300 font-sans tracking-wide uppercase mb-4">
+      {/* Article header */}
+      <article className="max-w-2xl mx-auto px-6 pt-10 pb-12">
+        <time className="font-mono text-[10px] tracking-[0.2em] text-border uppercase block mb-6">
           {new Date(teardown.date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })}
+            year: 'numeric', month: 'long', day: 'numeric',
+          }).toUpperCase()}
         </time>
-        <h1 className="font-serif text-4xl sm:text-5xl font-bold text-gray-950 leading-tight tracking-tight">
+
+        <h1 className="font-serif text-5xl sm:text-6xl font-black text-ink leading-[1.05] tracking-tight mb-8">
           {teardown.title}
         </h1>
-        <p className="mt-5 text-gray-500 text-lg leading-relaxed font-sans">
+
+        <div className="zine-divider">✦</div>
+
+        <p className="drop-cap font-sans text-lg text-muted leading-relaxed mt-6">
           {teardown.description}
         </p>
       </article>
 
-      <div className="border-t border-gray-100 bg-gray-50">
-        <div className="max-w-4xl mx-auto">
-          <PdfViewer url={`/api/pdf/${teardown.id}`} />
+      {/* PDF — framed like a document placed on a desk */}
+      <div className="max-w-4xl mx-auto px-6 pb-24">
+        <div className="font-mono text-[10px] text-border uppercase tracking-[0.2em] mb-4 text-center">
+          ── ── Document ── ──
+        </div>
+        <div className="md:-rotate-[0.4deg] transform-gpu">
+          <div className="border-[3px] border-ink shadow-[8px_8px_0_0_#1A1A1A] overflow-hidden">
+            <PdfViewer url={`/api/pdf/${teardown.id}`} />
+          </div>
         </div>
       </div>
     </div>

@@ -4,10 +4,10 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
 const inputClass =
-  'w-full border border-gray-200 rounded-xl px-4 py-3 text-sm font-sans text-gray-900 placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition';
+  'w-full border border-border bg-cream text-ink font-sans text-sm px-4 py-3 focus:outline-none focus:border-ink transition-colors placeholder-border';
 
 const labelClass =
-  'block text-xs font-sans font-medium text-gray-500 uppercase tracking-wide mb-2';
+  'font-mono text-[10px] text-muted uppercase tracking-[0.2em] block mb-2';
 
 export default function UploadForm() {
   const [title, setTitle] = useState('');
@@ -51,7 +51,7 @@ export default function UploadForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div>
         <label className={labelClass}>Title</label>
         <input
@@ -72,7 +72,7 @@ export default function UploadForm() {
           required
           rows={3}
           className={`${inputClass} resize-none`}
-          placeholder="A brief summary of what this teardown covers."
+          placeholder="What does this teardown cover?"
         />
       </div>
 
@@ -89,29 +89,27 @@ export default function UploadForm() {
 
       <div>
         <label className={labelClass}>PDF File</label>
-        <div className="border border-gray-200 rounded-xl px-4 py-3 hover:border-gray-300 transition">
+        <div className="border border-border p-3 hover:border-ink transition-colors">
           <input
             id="pdf-file"
             type="file"
             accept="application/pdf"
             onChange={(e) => setFile(e.target.files?.[0] ?? null)}
             required
-            className="w-full text-sm font-sans text-gray-500 file:mr-4 file:py-1.5 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200 cursor-pointer"
+            className="w-full font-mono text-xs text-muted file:mr-4 file:py-1.5 file:px-4 file:border file:border-ink file:bg-cream file:text-ink file:font-mono file:text-xs file:uppercase file:tracking-wide file:cursor-pointer hover:file:bg-ink hover:file:text-cream file:transition-colors cursor-pointer"
           />
         </div>
       </div>
 
-      {error && <p className="text-xs text-red-400 font-sans">{error}</p>}
-      {success && (
-        <p className="text-xs text-emerald-500 font-sans">Published successfully.</p>
-      )}
+      {error && <p className="font-mono text-[10px] text-red-500 uppercase tracking-widest">{error}</p>}
+      {success && <p className="font-mono text-[10px] text-green-600 uppercase tracking-widest">✦ Published successfully</p>}
 
       <button
         type="submit"
         disabled={loading}
-        className="w-full bg-gray-950 text-white py-3 rounded-xl text-sm font-sans font-medium hover:bg-gray-800 transition disabled:opacity-40"
+        className="w-full bg-ink text-cream font-mono text-xs py-4 uppercase tracking-[0.2em] hover:bg-accent hover:text-ink transition-colors disabled:opacity-40"
       >
-        {loading ? 'Uploading…' : 'Publish Teardown'}
+        {loading ? 'Uploading…' : 'Publish Teardown →'}
       </button>
     </form>
   );
